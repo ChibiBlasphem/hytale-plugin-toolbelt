@@ -2,6 +2,8 @@ package com.chibikookie.arcanerig.commands;
 
 import javax.annotation.Nonnull;
 
+import com.chibikookie.arcanerig.ArcaneRigPlugin;
+import com.chibikookie.arcanerig.api.ArcaneRigApi;
 import com.chibikookie.arcanerig.components.ArcaneRigData;
 import com.chibikookie.arcanerig.containers.ArcaneRigContainer;
 import com.hypixel.hytale.component.Ref;
@@ -29,6 +31,11 @@ public class ArcaneRigCommand extends AbstractPlayerCommand {
         assert player != null;
 
         ArcaneRigData data = store.ensureAndGetComponent(ref, ArcaneRigData.getComponentType());
+        ArcaneRigApi api = ArcaneRigPlugin.api();
+        if (api.getRegisteredSlots().size() == 0) {
+            ArcaneRigPlugin.getInstance().getLogger().atInfo().log("No slot has been registered for the arcane rig");
+            return;
+        }
 
         ArcaneRigContainer container = new ArcaneRigContainer(data);
         ContainerWindow window = new ContainerWindow(container);
