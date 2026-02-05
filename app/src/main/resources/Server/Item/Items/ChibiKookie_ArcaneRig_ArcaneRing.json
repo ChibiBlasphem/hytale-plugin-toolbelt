@@ -1,0 +1,48 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.ChibiKookie_ArcaneRig_ArcaneRing.name",
+    "Description": "server.items.ChibiKookie_ArcaneRig_ArcaneRing.description"
+  },
+  "MaxStack": 1,
+  "Model": "Items/ChibiKookie_ArcaneRig_ArcaneRing.blockymodel",
+  "Texture": "Items/ChibiKookie_ArcaneRig_ArcaneRing.png",
+  "Icon": "Icons/ItemsGenerated/ChibiKookie_ArcaneRig_ArcaneRing.png",
+  "Recipe": {
+    "TimeSeconds": 0,
+    "Input": [],
+    "OutputQuantity": 1,
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Categories": [
+          "Tools"
+        ],
+        "Id": "Fieldcraft"
+      }
+    ]
+  },
+  "Utility": {
+    "Usable": true
+  },
+  "Interactions": {
+    "Secondary": {
+      "Interactions": [
+        {
+          "Type": "chibikookie_arcanerig_arcanering_interaction"
+        }
+      ]
+    }
+  },
+  "IconProperties": {
+    "Scale": 2.1,
+    "Rotation": [
+      28,
+      24,
+      9
+    ],
+    "Translation": [
+      0,
+      -6
+    ]
+  }
+}

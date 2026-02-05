@@ -13,18 +13,16 @@ import javax.annotation.Nullable;
 import com.chibikookie.arcanerig.api.ArcaneRigApi;
 import com.chibikookie.arcanerig.api.ArcaneRigService;
 import com.chibikookie.arcanerig.api.SlotDescriptor;
-import com.chibikookie.arcanerig.commands.ArcaneRigCommand;
-import com.chibikookie.arcanerig.commands.ArcaneRigEquipCommand;
-import com.chibikookie.arcanerig.commands.ArcaneRigUnequipCommand;
 import com.chibikookie.arcanerig.components.ArcaneRigData;
 import com.chibikookie.arcanerig.components.ArcaneRigData.SlotEntry;
+import com.chibikookie.arcanerig.interactions.RingInteraction;
 import com.hypixel.hytale.component.ComponentType;
-import com.hypixel.hytale.component.Holder;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.event.events.player.PlayerReadyEvent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
@@ -51,18 +49,21 @@ public class ArcaneRigPlugin extends JavaPlugin {
 
         getEventRegistry().registerGlobal(PlayerReadyEvent.class, event -> {
             Player player = event.getPlayer();
-            Holder<EntityStore> holder = player.toHolder();
+            Ref<EntityStore> playerEntityRef = player.getReference();
+            Store<EntityStore> store = playerEntityRef.getStore();
+
 
             var created = false;
-            if (holder.getComponent(ArcaneRigData.getComponentType()) == null) {
-                holder.ensureAndGetComponent(ArcaneRigData.getComponentType());
+            if (store.getComponent(playerEntityRef, ArcaneRigData.getComponentType()) == null) {
+                store.ensureAndGetComponent(playerEntityRef, ArcaneRigData.getComponentType());
                 created = true;
             }
 
             getLogger().atInfo().log((created ? "Created" : "Loaded") +" arcane rig data for player "+ player.getDisplayName());
         });
 
-        setupCommands();
+        getCodecRegistry(Interaction.CODEC).register("chibikookie_arcanerig_arcanering_interaction", RingInteraction.class, RingInteraction.CODEC);
+
         tryStartDevBootstrap();
     }
 
@@ -79,15 +80,6 @@ public class ArcaneRigPlugin extends JavaPlugin {
     public void shutdown() {
         getLogger().atInfo().log("Plugin disabled!");
         instance = null;
-    }
-
-    private void setupCommands() {
-        var command = new ArcaneRigCommand();
-
-        command.addSubCommand(new ArcaneRigEquipCommand());
-        command.addSubCommand(new ArcaneRigUnequipCommand());
-
-        getCommandRegistry().registerCommand(command);
     }
 
     private void tryStartDevBootstrap() {
