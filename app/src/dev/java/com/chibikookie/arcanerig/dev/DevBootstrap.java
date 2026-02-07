@@ -9,9 +9,12 @@ public final class DevBootstrap {
 
         ArcaneRigPlugin.onApiReady(api -> {
             var pickaxeSlot = SlotDescriptor.builder("t_pickaxe")
-                .displayName("Pickaxe")
-                .canEquip(s -> true)
-                .build();
+                    .displayName("Pickaxe")
+                    .iconPath("ChibiKookie_ItemSlotBackground_Pickaxe.png")
+                    .canEquip(s -> {
+                        return s.getItemId().contains("Pickaxe");
+                    })
+                    .build();
             api.registerSlot(pickaxeSlot);
         });
     }

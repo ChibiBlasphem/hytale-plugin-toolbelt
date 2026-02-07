@@ -1,0 +1,71 @@
+$C = "../../Common.ui";
+
+@ItemGrid = ItemGrid {
+    InventorySectionId: @SectionId;
+    AreItemsDraggable: true;
+    SlotsPerRow: 9;
+    Style: (
+        SlotSize: 72,
+        SlotIconSize: 72,
+        SlotSpacing: 4,
+        SlotBackground: "ChibiKookie_ItemSlotBackground.png",
+    );
+};
+
+$C.@PageOverlay {
+    Group {
+        LayoutMode: Bottom;
+
+        $C.@DecoratedContainer {
+            Anchor: (Width: 715, Height: 369, Bottom: 30);
+
+            #Title {
+                Group {
+                    $C.@Title {
+                        @Text = "Rig";
+                    }
+                }
+            }
+
+            #Content {
+                Group #GridContainer {
+                    LayoutMode: TopScrolling;
+                    Anchor: (Width: 690);
+                    ContentHeight: 300;
+                    ScrollbarStyle: $C.@DefaultScrollbarStyle;
+
+                    @ItemGrid #ArcanerigGrid {
+                        @SectionId = 10;
+                    }
+                }
+            }
+        }
+
+        $C.@DecoratedContainer {
+            Anchor: (Width: 715, Height: 455, Bottom: 20);
+
+            #Title {
+                Group {
+                    $C.@Title {
+                        @Text = "Storage";
+                    }
+                }
+            }
+
+            #Content {
+                Group {
+                    LayoutMode: Top;
+
+                    @ItemGrid #StorageGrid {
+                        @SectionId = 20;
+                    }
+
+                    @ItemGrid #HotbarGrid {
+                        @SectionId = 30;
+                        Anchor: (Top: 10);
+                    }
+                }
+            }
+        }
+    }
+}

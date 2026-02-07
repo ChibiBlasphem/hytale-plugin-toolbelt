@@ -8,11 +8,13 @@ import com.hypixel.hytale.server.core.inventory.ItemStack;
 public final class SlotDescriptor {
     public final String slotId;
     public final String displayName;
+    public final String iconPath;
     public final Predicate<ItemStack> canEquip;
 
     private SlotDescriptor(Builder b) {
         slotId = b.slotId;
         displayName = b.displayName;
+        iconPath = b.iconPath;
         canEquip = b.canEquip;
     }
 
@@ -23,12 +25,20 @@ public final class SlotDescriptor {
     public static final class Builder {
         private final String slotId;
         private String displayName;
+        private String iconPath;
         private Predicate<ItemStack> canEquip = s -> true;
 
-        private Builder(String slotId) { this.slotId = slotId; }
+        private Builder(String slotId) {
+            this.slotId = slotId;
+        }
 
         public Builder displayName(String name) {
             displayName = name;
+            return this;
+        }
+
+        public Builder iconPath(String path) {
+            iconPath = path;
             return this;
         }
 

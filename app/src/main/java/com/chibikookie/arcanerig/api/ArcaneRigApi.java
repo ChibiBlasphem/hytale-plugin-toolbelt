@@ -15,6 +15,9 @@ public interface ArcaneRigApi {
     List<SlotDescriptor> getRegisteredSlots();
 
     @Nullable
+    SlotDescriptor getRegisteredSlot(String slotId);
+
+    @Nullable
     ItemStack getEquipped(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, String slotId);
 
     boolean trySetEquipped(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, String slotId,

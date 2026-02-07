@@ -133,6 +133,17 @@ public class ArcaneRigPlugin extends JavaPlugin {
         }
 
         @Override
+        public SlotDescriptor getRegisteredSlot(String slotId) {
+            List<SlotDescriptor> slots = service.getSlots();
+            for (int i = 0; i < slots.size(); ++i) {
+                if (slots.get(i).slotId.equals(slotId)) {
+                    return slots.get(i);
+                }
+            }
+            return null;
+        }
+
+        @Override
         public ItemStack getEquipped(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, String slotId) {
             ArcaneRigData data = store.ensureAndGetComponent(ref, ArcaneRigData.getComponentType());
             SlotEntry entry = data.getEntry(slotId);
