@@ -1,0 +1,6 @@
+@ItemGridStyle = Style(
+    SlotSize: 72,
+    SlotIconSize: 72,
+    SlotSpacing: 0,
+    SlotBackground: "ChibiKookie_ItemSlotBackground.png"
+);

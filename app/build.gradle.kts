@@ -74,6 +74,9 @@ group = pluginGroup
 
 repositories {
     mavenCentral()
+    maven {
+        url = uri("https://www.cursemaven.com")
+    }
 }
 
 if (!file(hytaleServerJar).exists()) {
@@ -86,6 +89,7 @@ if (!file(hytaleAssetsZip).exists()) {
 
 dependencies {
     compileOnly(files(hytaleServerJar))
+    implementation("curse.maven:hyui-1431415:7591359")
 }
 
 abstract class ProcessManifestTask : DefaultTask() {
@@ -318,6 +322,7 @@ tasks {
 
         main.output.resourcesDir?.let {
             from(it) {
+                include("Common/**")
                 include("manifest.json")
             }
         }

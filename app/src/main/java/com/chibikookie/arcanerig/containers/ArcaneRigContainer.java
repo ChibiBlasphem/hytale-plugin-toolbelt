@@ -37,14 +37,13 @@ public class ArcaneRigContainer extends SimpleItemContainer {
             String slotId = slot.slotId;
 
             slotsToSlotIds.put(i, slotId);
-            SlotEntry entry = data.getEntry(slotId);
             this.setSlotFilter(FilterActionType.ADD, i, new SlotFilter(slot.canEquip));
-
-            if (entry == null) {
-                continue;
+            
+            SlotEntry entry = data.getEntry(slotId);
+            if (entry != null) {
+                super.setItemStackForSlot(i, entry.getStack());
             }
 
-            super.setItemStackForSlot(i, entry.getStack());
         }
     }
 
@@ -78,8 +77,7 @@ public class ArcaneRigContainer extends SimpleItemContainer {
         }
 
         @Override
-        public boolean test(FilterActionType actionType, ItemContainer container, short slot,
-                @Nullable ItemStack stack) {
+        public boolean test(FilterActionType actionType, ItemContainer container, short slot, @Nullable ItemStack stack) {
             if (actionType == FilterActionType.ADD && stack != null) {
                 return predicate.test(stack);
             }
